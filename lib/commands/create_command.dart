@@ -1,7 +1,11 @@
 ﻿import 'dart:io';
 
+import 'package:devx/core/project_context.dart';
+
 class CreateCommand {
   void run(List<String> args) async {
+    final ctx = ProjectContext.current();
+
     if (args.isEmpty) {
       print('Usage: devx create community-app');
       return;
@@ -9,7 +13,7 @@ class CreateCommand {
 
     switch (args.first) {
       case 'community-app':
-        await _createCommunityApp();
+        await _createCommunityApp(ctx);
         break;
 
       default:
@@ -17,24 +21,21 @@ class CreateCommand {
     }
   }
 
-  Future<void> _createCommunityApp() async {
+  Future<void> _createCommunityApp(ProjectContext ctx) async {
     print('');
-    print('🚀 Creating Mahuri Connect...');
+    print('🚀 Creating ${ctx.projectName}...');
     print('');
 
-    if (File('pubspec.yaml').existsSync()) {
+    if (ctx.isFlutterProject) {
       print('✔ Existing Flutter project detected.');
-      print('Skipping flutter create...');
+      print('Skipping flutter create.');
       return;
     }
 
     final result = await Process.run(
       r'C:\src\flutter\bin\flutter.bat',
-      [
-        'create',
-        '.',
-      ],
-      workingDirectory: Directory.current.path,
+      ['create', '.'],
+      workingDirectory: ctx.path,
       runInShell: true,
     );
 
@@ -47,7 +48,6 @@ class CreateCommand {
     }
 
     final folders = [
-      'assets',
       'assets/images',
       'assets/icons',
       'assets/fonts',
@@ -58,7 +58,6 @@ class CreateCommand {
       'lib/services',
       'lib/utils',
       'lib/widgets',
-      'lib/features',
       'lib/features/auth',
       'lib/features/home',
       'lib/features/chat',
@@ -70,7 +69,8 @@ class CreateCommand {
     ];
 
     for (final folder in folders) {
-      Directory(folder).createSync(recursive: true);
+      Directory('${ctx.path}${Platform.pathSeparator}$folder')
+          .createSync(recursive: true);
       print('✓ $folder');
     }
 
@@ -78,5 +78,3 @@ class CreateCommand {
     print('✅ Base Structure Ready');
   }
 }
-
-

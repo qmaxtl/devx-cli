@@ -1,33 +1,12 @@
-import 'dart:io';
+﻿import 'package:devx/core/project_context.dart';
 
 void runDoctor() {
-  print('');
-  print('====================================');
-  print('         DEVX DOCTOR');
-  print('====================================');
-  print('');
-
-  checkTool('Dart', ['dart', '--version']);
-  checkTool('Flutter', ['flutter', '--version']);
-  checkTool('Git', ['git', '--version']);
+  final ctx = ProjectContext.current();
 
   print('');
-  print('Doctor Finished.');
-}
-
-void checkTool(String name, List<String> command) {
-  try {
-    final result = Process.runSync(
-      command.first,
-      command.sublist(1),
-    );
-
-    if (result.exitCode == 0) {
-      print('[OK] $name');
-    } else {
-      print('[FAIL] $name');
-    }
-  } catch (_) {
-    print('[FAIL] $name');
-  }
+  print('========== DEVX DOCTOR ==========');
+  print('Project : ${ctx.projectName}');
+  print('Path    : ${ctx.path}');
+  print('Flutter : ${ctx.isFlutterProject ? "YES" : "NO"}');
+  print('================================');
 }
