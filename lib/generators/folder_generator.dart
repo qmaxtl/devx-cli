@@ -1,4 +1,4 @@
-﻿import 'dart:io';
+import 'dart:io';
 
 class FolderGenerator {
   static const _folders = [

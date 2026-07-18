@@ -1,4 +1,4 @@
-﻿import 'dart:io';
+import 'dart:io';
 
 import 'package:devx/templates/template_manager.dart';
 
@@ -6,8 +6,7 @@ class PubspecGenerator {
   final TemplateManager templates = TemplateManager();
 
   void generate(String projectPath) {
-    final pubspec =
-        File('$projectPath${Platform.pathSeparator}pubspec.yaml');
+    final pubspec = File('$projectPath${Platform.pathSeparator}pubspec.yaml');
 
     if (!pubspec.existsSync()) {
       print('pubspec.yaml not found.');

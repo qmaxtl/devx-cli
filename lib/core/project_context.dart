@@ -1,4 +1,4 @@
-﻿import 'dart:io';
+import 'dart:io';
 
 class ProjectContext {
   final Directory root;
@@ -19,9 +19,7 @@ class ProjectContext {
 
     return ProjectContext(
       root: root,
-      projectName: root.uri.pathSegments
-          .where((e) => e.isNotEmpty)
-          .last,
+      projectName: root.uri.pathSegments.where((e) => e.isNotEmpty).last,
     );
   }
 }

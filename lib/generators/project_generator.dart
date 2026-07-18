@@ -1,4 +1,4 @@
-﻿import 'dart:io';
+import 'dart:io';
 
 import 'package:devx/generators/analysis_generator.dart';
 import 'package:devx/generators/folder_generator.dart';
@@ -16,8 +16,7 @@ class ProjectGenerator {
 
     pubspec.generate(projectPath);
 
-    final projectName =
-        projectPath.split(Platform.pathSeparator).last;
+    final projectName = projectPath.split(Platform.pathSeparator).last;
 
     main.generate(projectPath, projectName);
 

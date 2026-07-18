@@ -1,4 +1,4 @@
-﻿import 'package:devx/core/project_context.dart';
+import 'package:devx/core/project_context.dart';
 
 void runDoctor() {
   final ctx = ProjectContext.current();

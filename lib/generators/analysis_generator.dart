@@ -1,4 +1,4 @@
-﻿import 'package:devx/templates/template_manager.dart';
+import 'package:devx/templates/template_manager.dart';
 
 class AnalysisGenerator {
   final TemplateManager templates = TemplateManager();
