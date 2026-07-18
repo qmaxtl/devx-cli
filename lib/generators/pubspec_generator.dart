@@ -1,55 +1,37 @@
 ﻿import 'dart:io';
 
+import 'package:devx/templates/template_manager.dart';
+
 class PubspecGenerator {
+  final TemplateManager templates = TemplateManager();
+
   void generate(String projectPath) {
-    print('===== PUBSPEC GENERATOR =====');
-    print('Project Path: $projectPath');
+    final pubspec =
+        File('$projectPath${Platform.pathSeparator}pubspec.yaml');
 
-    final file = File('$projectPath${Platform.pathSeparator}pubspec.yaml');
-
-    print('Pubspec: ${file.path}');
-    print('Exists: ${file.existsSync()}');
-
-    if (!file.existsSync()) {
+    if (!pubspec.existsSync()) {
       print('pubspec.yaml not found.');
       return;
     }
 
-    var content = file.readAsStringSync();
+    final original = pubspec.readAsStringSync();
 
-    print('Contains dependencies: ${content.contains("dependencies:")}');
-    print('Contains dev_dependencies: ${content.contains("dev_dependencies:")}');
-    print('Already configured: ${content.contains("flutter_riverpod:")}');
+    final template =
+        templates.read('flutter${Platform.pathSeparator}pubspec.yaml.tpl');
 
-    if (content.contains('flutter_riverpod:')) {
-      print('✔ Dependencies already configured.');
+    final depsStart = original.indexOf('dependencies:');
+    final flutterStart = original.indexOf('flutter:');
+
+    if (depsStart == -1 || flutterStart == -1) {
+      print('Unable to patch pubspec.');
       return;
     }
 
-    content = content.replaceFirst(
-      'dependencies:',
-      '''dependencies:
-  flutter_riverpod: ^2.6.1
-  go_router: ^14.2.0
-  dio: ^5.7.0
-  hive: ^2.2.3
-  hive_flutter: ^1.1.0
-  shared_preferences: ^2.3.2
-''',
-    );
+    final before = original.substring(0, depsStart);
+    final after = original.substring(flutterStart);
 
-    content = content.replaceFirst(
-      'dev_dependencies:',
-      '''dev_dependencies:
-  build_runner: ^2.4.12
-  hive_generator: ^2.0.1
-  flutter_launcher_icons: ^0.14.1
-  flutter_native_splash: ^2.4.1
-''',
-    );
+    pubspec.writeAsStringSync(before + template + '\n' + after);
 
-    file.writeAsStringSync(content);
-
-    print('✔ pubspec.yaml updated.');
+    print('✓ pubspec.yaml');
   }
 }
