@@ -1,8 +1,8 @@
-import '../commands/create.dart';
-import '../commands/doctor.dart';
-import '../commands/feature.dart';
-import '../commands/template.dart';
-import '../commands/version.dart';
+import 'commands/create.dart';
+import 'commands/doctor.dart';
+import 'commands/feature.dart';
+import 'commands/template.dart';
+import 'commands/version.dart';
 
 import 'command_registry.dart';
 
