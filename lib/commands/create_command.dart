@@ -22,12 +22,20 @@ class CreateCommand {
     print('🚀 Creating Mahuri Connect...');
     print('');
 
+    if (File('pubspec.yaml').existsSync()) {
+      print('✔ Existing Flutter project detected.');
+      print('Skipping flutter create...');
+      return;
+    }
+
     final result = await Process.run(
-      'flutter',
+      r'C:\src\flutter\bin\flutter.bat',
       [
         'create',
         '.',
       ],
+      workingDirectory: Directory.current.path,
+      runInShell: true,
     );
 
     stdout.write(result.stdout);
@@ -70,3 +78,5 @@ class CreateCommand {
     print('✅ Base Structure Ready');
   }
 }
+
+
