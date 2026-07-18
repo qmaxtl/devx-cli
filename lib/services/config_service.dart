@@ -1,11 +1,9 @@
-class ConfigService {
-  static const appName = 'DevX';
-  static const version = '1.0.0';
+import 'dart:io';
 
-  Map<String, dynamic> load() {
-    return {
-      'app': appName,
-      'version': version,
-    };
-  }
+class ConfigService {
+  static const fileName = '.devx.yaml';
+
+  bool exists() => File(fileName).existsSync();
+
+  File get file => File(fileName);
 }

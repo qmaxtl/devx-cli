@@ -1,11 +1,7 @@
 import 'dart:io';
 
 class Progress {
-  static void start(String message) {
-    stdout.write('$message...');
-  }
-
-  static void done() {
-    stdout.writeln(' Done');
-  }
+  void start(String task) => stdout.writeln('? $task');
+  void done([String task = 'Done']) => stdout.writeln('? $task');
+  void fail(String task) => stderr.writeln('? $task');
 }

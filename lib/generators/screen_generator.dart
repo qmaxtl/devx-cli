@@ -1,28 +1,27 @@
 import 'dart:io';
 
-import 'package:mustache_template/mustache.dart';
-import 'package:recase/recase.dart';
-
 class ScreenGenerator {
-  void generate(String name) {
-    final pascal = ReCase(name).pascalCase;
-    final snake = ReCase(name).snakeCase;
-
-    final template = File('templates/screen.template.dart').readAsStringSync();
-
-    final output = Template(
-      template,
-      htmlEscapeValues: false,
-    ).renderString({
-      'ScreenName': pascal,
-    });
-
-    final file = File('lib/screens/${snake}_screen.dart');
-
+  Future<void> generate(String name) async {
+    final file = File('lib/screens/${name}_screen.dart');
     file.createSync(recursive: true);
-    file.writeAsStringSync(output);
 
-    print('[OK] Screen Generated');
-    print(file.path);
+    file.writeAsStringSync('''
+import 'package:flutter/material.dart';
+
+class ${name}Screen extends StatelessWidget {
+  const ${name}Screen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Scaffold(
+      body: Center(
+        child: Text("$name Screen"),
+      ),
+    );
+  }
+}
+''');
+
+    stdout.writeln('Screen generated: ${file.path}');
   }
 }

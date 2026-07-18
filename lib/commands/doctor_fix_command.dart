@@ -6,12 +6,31 @@ class DoctorFixCommand {
     stdout.writeln('Running DevX Doctor Fix...');
     stdout.writeln('');
 
-    await Process.run(
-      'flutter',
-      ['pub', 'get'],
-      runInShell: true,
-    );
+    final commands = [
+      ['flutter', 'doctor'],
+      ['flutter', 'pub', 'get'],
+      ['dart', 'fix', '--apply'],
+      ['dart', 'format', '.'],
+    ];
 
-    stdout.writeln('Doctor Fix Completed.');
+    for (final cmd in commands) {
+      stdout.writeln('> ${cmd.join(" ")}');
+
+      final result = await Process.run(
+        cmd.first,
+        cmd.sublist(1),
+        runInShell: true,
+      );
+
+      stdout.write(result.stdout);
+
+      if (result.exitCode != 0) {
+        stderr.write(result.stderr);
+        throw Exception('Failed: ${cmd.join(" ")}');
+      }
+    }
+
+    stdout.writeln('');
+    stdout.writeln('DevX Doctor Fix completed successfully.');
   }
 }

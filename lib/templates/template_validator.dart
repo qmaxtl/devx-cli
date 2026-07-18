@@ -1,5 +1,10 @@
+import 'dart:io';
+
 class TemplateValidator {
   bool validate(String name) {
-    return name.trim().isNotEmpty;
+    if (name.trim().isEmpty) {
+      throw ArgumentError('Template name cannot be empty.');
+    }
+    return true;
   }
 }

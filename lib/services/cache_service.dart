@@ -1,11 +1,9 @@
 class CacheService {
-  final Map<String, dynamic> _cache = {};
+  final _cache = <String, Object?>{};
 
-  void set(String key, dynamic value) {
-    _cache[key] = value;
-  }
+  T? get<T>(String key) => _cache[key] as T?;
 
-  dynamic get(String key) => _cache[key];
+  void set<T>(String key, T value) => _cache[key] = value;
 
   void clear() => _cache.clear();
 }

@@ -2,13 +2,18 @@ import 'dart:io';
 
 class FeatureGenerator {
   Future<void> generate(String name) async {
-    final dir = Directory('lib/features/$name');
+    final folders = [
+      'lib/features/$name',
+      'lib/features/$name/data',
+      'lib/features/$name/domain',
+      'lib/features/$name/presentation',
+      'lib/features/$name/presentation/widgets',
+    ];
 
-    Directory('${dir.path}/data').createSync(recursive: true);
-    Directory('${dir.path}/domain').createSync(recursive: true);
-    Directory('${dir.path}/presentation').createSync(recursive: true);
-    Directory('${dir.path}/presentation/widgets').createSync(recursive: true);
+    for (final folder in folders) {
+      Directory(folder).createSync(recursive: true);
+    }
 
-    stdout.writeln('Feature "$name" created.');
+    stdout.writeln('Feature "$name" generated.');
   }
 }

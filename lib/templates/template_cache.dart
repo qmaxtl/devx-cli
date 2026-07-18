@@ -1,5 +1,5 @@
 class TemplateCache {
-  final Map<String, String> _cache = {};
+  final _cache = <String, String>{};
 
   void put(String key, String value) => _cache[key] = value;
 
