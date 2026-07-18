@@ -1,6 +1,7 @@
 ﻿import 'dart:io';
 
 import 'package:devx/core/project_context.dart';
+import 'package:devx/generators/pubspec_generator.dart';
 
 class CreateCommand {
   void run(List<String> args) async {
@@ -74,7 +75,11 @@ class CreateCommand {
       print('✓ $folder');
     }
 
+    PubspecGenerator().generate(ctx.path);
+
     print('');
     print('✅ Base Structure Ready');
   }
 }
+
+
