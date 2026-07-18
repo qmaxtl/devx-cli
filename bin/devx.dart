@@ -1,3 +1,4 @@
+﻿import 'package:devx/commands/create_command.dart';
 import 'package:devx/commands/doctor_command.dart';
 import 'package:devx/generators/screen_generator.dart';
 import 'package:devx/generators/widget_generator.dart';
@@ -8,6 +9,7 @@ void main(List<String> arguments) {
     print('');
     print('Commands:');
     print('  doctor');
+    print('  create community-app');
     print('  screen <name>');
     print('  widget <name>');
     return;
@@ -16,6 +18,10 @@ void main(List<String> arguments) {
   switch (arguments.first) {
     case 'doctor':
       runDoctor();
+      break;
+
+    case 'create':
+      CreateCommand().run(arguments.skip(1).toList());
       break;
 
     case 'screen':
