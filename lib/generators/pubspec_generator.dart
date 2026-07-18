@@ -43,3 +43,4 @@ class PubspecGenerator {
     print('✔ pubspec.yaml updated.');
   }
 }
+

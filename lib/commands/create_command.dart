@@ -30,6 +30,9 @@ class CreateCommand {
     if (ctx.isFlutterProject) {
       print('✔ Existing Flutter project detected.');
       print('Skipping flutter create.');
+
+      PubspecGenerator().generate(ctx.path);
+
       return;
     }
 
@@ -81,5 +84,6 @@ class CreateCommand {
     print('✅ Base Structure Ready');
   }
 }
+
 
 
