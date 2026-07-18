@@ -1,4 +1,4 @@
-﻿import 'package:devx/commands/create_command.dart';
+import 'package:devx/commands/create_command.dart';
 import 'package:devx/commands/doctor_command.dart';
 import 'package:devx/generators/screen_generator.dart';
 import 'package:devx/generators/widget_generator.dart';

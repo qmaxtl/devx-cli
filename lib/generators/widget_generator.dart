@@ -17,7 +17,7 @@ class WidgetGenerator {
       'WidgetName': pascal,
     });
 
-    final file = File('lib/widgets/${snake}.dart');
+    final file = File('lib/widgets/$snake.dart');
 
     file.createSync(recursive: true);
     file.writeAsStringSync(output);

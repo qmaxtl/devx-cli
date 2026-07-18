@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:devx/core/project_context.dart';
 import 'package:devx/generators/flutter_generator.dart';
 import 'package:devx/generators/project_generator.dart';

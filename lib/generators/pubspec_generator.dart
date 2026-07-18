@@ -29,7 +29,7 @@ class PubspecGenerator {
     final before = original.substring(0, depsStart);
     final after = original.substring(flutterStart);
 
-    pubspec.writeAsStringSync(before + template + '\n' + after);
+    pubspec.writeAsStringSync('$before$template\n$after');
 
     print('✓ pubspec.yaml');
   }
