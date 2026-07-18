@@ -2,7 +2,13 @@
 
 class PubspecGenerator {
   void generate(String projectPath) {
+    print('===== PUBSPEC GENERATOR =====');
+    print('Project Path: $projectPath');
+
     final file = File('$projectPath${Platform.pathSeparator}pubspec.yaml');
+
+    print('Pubspec: ${file.path}');
+    print('Exists: ${file.existsSync()}');
 
     if (!file.existsSync()) {
       print('pubspec.yaml not found.');
@@ -10,6 +16,10 @@ class PubspecGenerator {
     }
 
     var content = file.readAsStringSync();
+
+    print('Contains dependencies: ${content.contains("dependencies:")}');
+    print('Contains dev_dependencies: ${content.contains("dev_dependencies:")}');
+    print('Already configured: ${content.contains("flutter_riverpod:")}');
 
     if (content.contains('flutter_riverpod:')) {
       print('✔ Dependencies already configured.');
@@ -43,4 +53,3 @@ class PubspecGenerator {
     print('✔ pubspec.yaml updated.');
   }
 }
-
